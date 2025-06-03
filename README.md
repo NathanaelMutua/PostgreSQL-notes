@@ -1,5 +1,5 @@
 # Querying Data in PostgreSQL
-*Mastering SELECT, Aliases, ORDER BY, and DISTINCT*
+*Mastering SELECT, Aliases, ORDER BY, and DISTINCT with Lucy, Nathanael and Stella*
 
 ## Introduction
 The SELECT statement is the foundation of data retrieval in PostgreSQL. This tutorial covers essential querying techniques using the `employees` table:
@@ -7,8 +7,8 @@ The SELECT statement is the foundation of data retrieval in PostgreSQL. This tut
 ```sql
 CREATE TABLE employees (
   id SERIAL PRIMARY KEY,
-  first_name VARCHAR(50) NOT NULL,
-  last_name VARCHAR(50) NOT NULL,
+  first_name VARCHAR(50),
+  last_name VARCHAR(50),
   department VARCHAR(50),
   hire_date DATE,
   salary NUMERIC(10,2),
@@ -16,12 +16,14 @@ CREATE TABLE employees (
 );
 
 INSERT INTO employees VALUES
-(1, 'Sarah', 'Chen', 'Engineering', '2023-01-15', 85000, 's.chen@company.com'),
-(2, 'James', 'Wilson', 'Marketing', '2022-03-22', 72000, 'j.wilson@company.com'),
-(3, 'Priya', 'Patel', 'Engineering', '2023-11-05', 92000, 'priya.p@company.com'),
-(4, 'Marcus', 'Johnson', 'HR', '2021-08-30', 68000, 'marcusj@company.com'),
-(5, 'Li', 'Wei', 'Engineering', '2023-01-15', 85000, 'li.wei@company.com'),
-(6, 'Anna', 'Lee', NULL, '2023-05-01', 75000, 'anna.lee@company.com');
+(1, 'Stella', 'Stephanie', 'Engineering', '2023-01-15', 85000, 's.stephanie@company.com'),
+(2, 'Nathanael', 'Mutua', 'Marketing', '2022-03-22', 72000, 'nathanael.m@company.com'),
+(3, 'Lucy', 'Wanjiru', 'Director', '2023-11-05', 92000, 'l.wanjiru@company.com'),
+(4, 'Mwangi', 'Johnson', 'HR', '2021-08-30', 68000, 'mwangij@company.com'),
+(5, 'Daniel', 'Njoroge', 'Engineering', '2023-01-15', 85000, 'dan.njoro@company.com'),
+(6, 'Anna', 'Kiptoo', NULL, '2023-05-01', 75000, 'anna.kip@company.com'),
+(7, 'Wilson', 'Kiptoo', 'Engineering', '2024-02-12', 60000, 'wilson.kip@company.com'),
+(7, 'Mercy', 'Mumo', 'Marketing', '2024-02-12', 42000, 'wilson.kip@company.com')
 ```
 
 ## 1. The SELECT Statement
@@ -35,6 +37,24 @@ FROM table_name;
 
 ### Key Examples
 #### Fetch specific columns
+We specify the columns to be selected after the 'SELECT' keyword.
+
+##### Selecting a single Column
+
+```sql
+SELECT first_name
+FROM employees;
+```
+```
+ first_name 
+------------
+ Sarah      
+ James      
+ ...
+```
+
+##### Selecting Multiple Columns
+We separate each column with a comma (,)
 ```sql
 SELECT first_name, last_name, department 
 FROM employees;
@@ -48,6 +68,7 @@ FROM employees;
 ```
 
 #### Fetch all columns
+We use the (*) asterisk symbol.
 ```sql
 SELECT * FROM employees;
 ```
@@ -60,17 +81,22 @@ SELECT * FROM employees;
 ```sql
 SELECT 
   first_name || ' ' || last_name,
-  salary * 1.1
+  salary
 FROM employees;
 ```
 ```
-     ?column?     | ?column? 
+     ?column?     | salary 
 ------------------+----------
  Sarah Chen       |  93500.00
  James Wilson     |  79200.00
  ...
 ```
-> Notice the default column names. We'll learn to customize these with aliases in the next section.
+> Notice the default column name. We'll learn to customize these with aliases in the next section.
+
+#### Using WHERE
+
+To filter results based on specific conditions, we can use the WHERE clause. For example, to retrieve employees in the Engineering department:
+
 
 ## 2. Column Aliases
 Temporary names assigned to columns or expressions for readability.
@@ -184,7 +210,7 @@ FROM employees;
 
 #### Multi-column distinct
 ```sql
-SELECT DISTINCT first_name, department 
+SELECT DISTINCT department, salary
 FROM employees;
 ```
 ```
@@ -232,6 +258,7 @@ FROM employees;
 | NULLS FIRST/LAST   | Control NULL position in sorts   | ORDER BY score NULLS LAST        |
 
 *PostgreSQL Querying Tutorial • June 2025*
+```
 
 Key conversion notes:
 1. Preserved all code blocks with SQL syntax highlighting
