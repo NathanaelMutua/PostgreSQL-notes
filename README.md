@@ -1,5 +1,5 @@
 # Querying Data in PostgreSQL
-*Mastering SELECT, Aliases, ORDER BY, and DISTINCT*
+*Mastering SELECT, Aliases, ORDER BY, and DISTINCT with Lucy, Nathanael and Stella*
 
 ## Introduction
 The SELECT statement is the foundation of data retrieval in PostgreSQL. This tutorial covers essential querying techniques using the `employees` table:
