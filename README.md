@@ -33,9 +33,11 @@ INSERT INTO employees VALUES
 - Have PostgreSQL installed..[click here for a tutorial](https://www.youtube.com/watch?v=GpqJzWCcQXY)
 - Have PGADmin 4 installed...[click here for a tutorial](https://www.youtube.com/watch?v=4qH-7w5LZsA)
 - Create a database (you can name it as you wish)
+
 <img src="./images/create-database.png" alt="Creating Database" width="350" >
 
 - Now we can start, just open the query tool:
+
 <img src="./images/access-query.png" alt="Accessing Query Tool" width="350" >
 
 <h2 style="padding-top: 60px">1. The SELECT Statement</h2>
