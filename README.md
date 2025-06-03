@@ -28,6 +28,7 @@ INSERT INTO employees VALUES
 
 
 <h2 style="padding-top: 60px">Setup</h2>
+
 ### Requirements
 - Have PostgreSQL installed..[click here for a tutorial](https://www.youtube.com/watch?v=GpqJzWCcQXY)
 - Have PGADmin 4 installed...[click here for a tutorial](https://www.youtube.com/watch?v=4qH-7w5LZsA)
