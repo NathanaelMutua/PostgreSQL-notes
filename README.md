@@ -1,5 +1,5 @@
 # Querying Data in PostgreSQL
-*Mastering SELECT, Aliases, ORDER BY, and DISTINCT with Lucy, Nathanael and Stella*
+*Learning SELECT, Aliases, ORDER BY, and DISTINCT with Lucy, Nathanael and Stella*
 
 ## Introduction
 The SELECT statement is the foundation of data retrieval in PostgreSQL. This tutorial covers essential querying techniques using the `employees` table:
@@ -17,17 +17,26 @@ CREATE TABLE employees (
 
 INSERT INTO employees VALUES
 (1, 'Stella', 'Stephanie', 'Engineering', '2023-01-15', 85000, 's.stephanie@company.com'),
-(2, 'Nathanael', 'Mutua', 'Marketing', '2022-03-22', 72000, 'nathanael.m@company.com'),
+(2, 'Nathanael', 'Mutua', 'Marketing', '2022-03-22', 90000, 'nathanael.m@company.com'),
 (3, 'Lucy', 'Wanjiru', 'Director', '2023-11-05', 92000, 'l.wanjiru@company.com'),
 (4, 'Mwangi', 'Johnson', 'HR', '2021-08-30', 68000, 'mwangij@company.com'),
 (5, 'Daniel', 'Njoroge', 'Engineering', '2023-01-15', 85000, 'dan.njoro@company.com'),
 (6, 'Anna', 'Kiptoo', NULL, '2023-05-01', 75000, 'anna.kip@company.com'),
 (7, 'Wilson', 'Kiptoo', 'Engineering', '2024-02-12', 60000, 'wilson.kip@company.com'),
-(7, 'Mercy', 'Mumo', 'Marketing', '2024-02-12', 42000, 'wilson.kip@company.com')
+(7, 'Mercy', 'Mumo', 'Marketing', '2024-02-12', 42000, 'mercy.mumo@company.com');
 ```
 
+## Setup
+### Requirements
+- Have PostgreSQL installed..[click here for a tutorial](https://www.youtube.com/watch?v=GpqJzWCcQXY)
+- Have PGADmin 4 installed...[click here for a tutorial](https://www.youtube.com/watch?v=4qH-7w5LZsA)
+- Create a database (you can name it as you wish)
+  ![Creating Database](./images/create-database.png)
+- Now we can start, just open the query tool:
+  ![Accessing Query Tool](./images/access-query.png)
+
 ## 1. The SELECT Statement
-The foundation of data retrieval in PostgreSQL. Used to fetch data from database tables.
+It is kinda like the foundation of data retrieval in PostgreSQL. It is a command for retrieving data from tables within a PostgreSQL database. It enables users to specify which columns to fetch and apply filters for targeted results.
 
 ### Basic Syntax
 ```sql
@@ -36,10 +45,10 @@ FROM table_name;
 ```
 
 ### Key Examples
-#### Fetch specific columns
+### Fetch specific columns
 We specify the columns to be selected after the 'SELECT' keyword.
 
-##### Selecting a single Column
+#### Selecting a single Column
 
 ```sql
 SELECT first_name
@@ -48,26 +57,30 @@ FROM employees;
 ```
  first_name 
 ------------
- Sarah      
- James      
+ Stella    
+ Nathanael
+ Lucy
+ Mwangi
+ Daniel    
  ...
 ```
 
-##### Selecting Multiple Columns
+#### Selecting Multiple Columns
 We separate each column with a comma (,)
 ```sql
 SELECT first_name, last_name, department 
 FROM employees;
 ```
 ```
- first_name | last_name |  department  
-------------+-----------+--------------
- Sarah      | Chen      | Engineering
- James      | Wilson    | Marketing
+ first_name |  last_name  |   department  
+------------+-------------+---------------
+ Stella     | Stephanie  |  Engineering
+ Nathanael  | Mutua      |  Marketing
+ Lucy       | Wanjiru    |  Director
  ...
 ```
 
-#### Fetch all columns
+### Fetch all columns
 We use the (*) asterisk symbol.
 ```sql
 SELECT * FROM employees;
@@ -77,7 +90,7 @@ SELECT * FROM employees;
 > - Increase network traffic
 > - Cause application slowdowns
 
-#### Using expressions
+### Using expressions
 ```sql
 SELECT 
   first_name || ' ' || last_name,
@@ -87,16 +100,30 @@ FROM employees;
 ```
      ?column?     | salary 
 ------------------+----------
- Sarah Chen       |  93500.00
- James Wilson     |  79200.00
+ Sarah Stephanie  |  85000.00
+ Nathanael Mutua  |  90000.00
+ Lucy Wanjiru     |  92000.00
  ...
 ```
 > Notice the default column name. We'll learn to customize these with aliases in the next section.
 
-#### Using WHERE
+### Using WHERE to target and filter
 
 To filter results based on specific conditions, we can use the WHERE clause. For example, to retrieve employees in the Engineering department:
 
+```sql
+SELECT 
+  first_name , last_name, salary
+FROM employees
+WHERE department = 'Engineering';
+```
+```
+     first_name   |      last_name   | salary     |
+------------------+------------------+------------+
+ Stella           |  Stephanie       |  85000.00  |
+ Daniel           |  Njoroge         |  85000.00  |
+ ...
+```
 
 ## 2. Column Aliases
 Temporary names assigned to columns or expressions for readability.
@@ -108,14 +135,27 @@ SELECT column_name alias_name  -- AS is optional
 SELECT expression AS "Alias With Space"
 ```
 
-### Practical Examples
+### Examples of Aliasing
 #### Basic aliasing
+We will replace the column heads for two columns in our employees table.
+
 ```sql
 SELECT 
   first_name AS "First Name", 
   last_name AS surname
 FROM employees;
 ```
+```
+  First Name  |   surname   
+--------------+--------------
+ Stella       |   Stephanie
+ Nathanael    |   Mutua
+ Lucy         |   Wanjiru
+ Mwangi       |   Johnson
+   ...   
+```
+> [!NOTE]
+> To Alias names with spaces we enclose them in quotes
 
 #### Expression aliasing
 ```sql
@@ -125,10 +165,10 @@ SELECT
 FROM employees;
 ```
 ```
-   full_name    | proposed_salary 
-----------------+-----------------
- Sarah Chen     |        93500.00
- James Wilson   |        79200.00
+   full_name       | proposed_salary 
+-------------------+-----------------
+ Stella Stephanie  |        93500.00
+ Lucy Wanjiru      |        101200.00
  ...
 ```
 
@@ -139,10 +179,16 @@ SELECT
   salary AS "Annual Salary ($)"
 FROM employees;
 ```
+
+```
+
+```
+
 > Use double quotes for aliases containing spaces or special characters
 
 ## 3. ORDER BY Clause
 Sorts query results based on specified columns or expressions.
+Usually basically ascending and descending, but we can do more.
 
 ### Basic Syntax
 ```sql
@@ -159,6 +205,14 @@ SELECT first_name, hire_date
 FROM employees
 ORDER BY hire_date DESC;  -- Newest first
 ```
+```
+ first_name  |  hire_date
+-------------+-------------
+  Wilson     |  2024-02-12
+  Mercy      |  2024-02-12
+  Lucy       |  2023-11-05
+  ...
+```
 
 #### Multi-column sorting
 ```sql
@@ -173,12 +227,25 @@ SELECT first_name, last_name
 FROM employees
 ORDER BY LENGTH(first_name), last_name;
 ```
+```
+ department    | 	first_name	|  salary
+---------------+--------------+-----------
+ "Director"	   |  "Lucy"	    |  92000.00
+ "Engineering" |	"Daniel"	  |  85000.00
+ ...
+```
 
 #### NULL handling
 ```sql
 SELECT first_name, department
 FROM employees
 ORDER BY department NULLS LAST;
+```
+
+```sql
+SELECT first_name, department
+FROM employees
+ORDER BY department NULLS FIRST;
 ```
 
 ## 4. SELECT DISTINCT Clause
@@ -204,6 +271,7 @@ FROM employees;
 --------------
  Engineering
  Marketing
+ Director
  HR
  null
 ```
@@ -214,14 +282,15 @@ SELECT DISTINCT department, salary
 FROM employees;
 ```
 ```
- first_name | department  
-------------+--------------
- Sarah      | Engineering
- James      | Marketing
- Priya      | Engineering
- Marcus     | HR
- Li         | Engineering
- Anna       | null
+ first_name  |  department  
+-------------+--------------
+ Marketing   |  42000.00
+ [null]      |  75000.00
+ HR          |  68000.00
+ Marketing   |  72000.00
+ Engineering |  85000.00
+ Director    |  92000.00
+ Engineering |  60000.00
 ```
 
 #### DISTINCT with expressions
@@ -233,22 +302,21 @@ FROM employees;
 ```
  salary_band 
 -------------
-    85.00
-    72.00
     92.00
-    68.00
+    60.00
+    72.00
+    85.00
     75.00
+    42.00
 ```
-> **Performance consideration:** DISTINCT sorts results internally which can be costly on large datasets
+> **Performance thought:** DISTINCT sorts results internally which can be costly on large datasets.
 
-## Query Optimization Tips
-> - **SELECT Specific Columns**: Avoid SELECT * in production  
-> - **Use Aliases Wisely**: Improve readability but avoid overly long names  
-> - **Efficient Sorting**: Add indexes on frequently sorted columns  
-> - **DISTINCT Alternatives**: Consider GROUP BY for complex deduplication  
-> - **NULL Handling**: Use COALESCE for default values in sorts  
+## Querying Tips
+> - **SELECT Specific Columns**: Avoid SELECT * in production, it's kinda risky.
+> - **Use Aliases Wisely**: Improve readability but avoid names that are too long.
+> - **DISTINCT Alternatives**: Consider GROUP BY for complex deduplication.
 
-## PostgreSQL Querying Quick Reference
+## PostgreSQL Querying Summary
 | Clause             | Purpose                          | Example                          |
 |--------------------|----------------------------------|----------------------------------|
 | SELECT             | Specify columns to retrieve      | SELECT id, name FROM users       |
@@ -257,17 +325,4 @@ FROM employees;
 | DISTINCT           | Remove duplicates                | SELECT DISTINCT department       |
 | NULLS FIRST/LAST   | Control NULL position in sorts   | ORDER BY score NULLS LAST        |
 
-*PostgreSQL Querying Tutorial • June 2025*
-```
-
-Key conversion notes:
-1. Preserved all code blocks with SQL syntax highlighting
-2. Converted tables to Markdown pipe syntax
-3. Maintained warnings/tips as blockquotes
-4. Kept hierarchical heading structure
-5. Preserved special formatting like bold text and inline code
-6. Maintained all SQL examples and sample outputs
-7. Added horizontal rules between major sections
-8. Used > for tip/warning blocks
-9. Maintained all original content including table data and examples
-10. Added proper Markdown escape characters where needed
+*<b>PostgreSQL Querying Tutorial</b> • Lucy|Nash|Stella June 2025*
