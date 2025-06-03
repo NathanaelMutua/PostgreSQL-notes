@@ -1,7 +1,7 @@
-# Querying Data in PostgreSQL
+<h1 style="text-align: center; padding: 40px 2px">Querying Data in PostgreSQL</h1>
 *Learning SELECT, Aliases, ORDER BY, and DISTINCT with Lucy, Nathanael and Stella*
 
-## Introduction
+<h2 style="padding-top: 60px">Introduction</h2>
 The SELECT statement is the foundation of data retrieval in PostgreSQL. This tutorial covers essential querying techniques using the `employees` table:
 
 ```sql
@@ -16,26 +16,27 @@ CREATE TABLE employees (
 );
 
 INSERT INTO employees VALUES
-(1, 'Stella', 'Stephanie', 'Engineering', '2023-01-15', 85000, 's.stephanie@company.com'),
+(1, 'Stella', 'Stephanie', 'Engineering', '2023-01-15', 89000, 's.stephanie@company.com'),
 (2, 'Nathanael', 'Mutua', 'Marketing', '2022-03-22', 90000, 'nathanael.m@company.com'),
 (3, 'Lucy', 'Wanjiru', 'Director', '2023-11-05', 92000, 'l.wanjiru@company.com'),
 (4, 'Mwangi', 'Johnson', 'HR', '2021-08-30', 68000, 'mwangij@company.com'),
 (5, 'Daniel', 'Njoroge', 'Engineering', '2023-01-15', 85000, 'dan.njoro@company.com'),
 (6, 'Anna', 'Kiptoo', NULL, '2023-05-01', 75000, 'anna.kip@company.com'),
 (7, 'Wilson', 'Kiptoo', 'Engineering', '2024-02-12', 60000, 'wilson.kip@company.com'),
-(7, 'Mercy', 'Mumo', 'Marketing', '2024-02-12', 42000, 'mercy.mumo@company.com');
+(8, 'Mercy', 'Mumo', 'Marketing', '2024-02-12', 42000, 'mercy.mumo@company.com');
 ```
 
-## Setup
+
+<h2 style="padding-top: 60px">Setup</h2>
 ### Requirements
 - Have PostgreSQL installed..[click here for a tutorial](https://www.youtube.com/watch?v=GpqJzWCcQXY)
 - Have PGADmin 4 installed...[click here for a tutorial](https://www.youtube.com/watch?v=4qH-7w5LZsA)
 - Create a database (you can name it as you wish)
-  ![Creating Database](./images/create-database.png)
+  <img src="./images/create-database.png" alt="Creating Database" width="350" >
 - Now we can start, just open the query tool:
-  ![Accessing Query Tool](./images/access-query.png)
+  <img src="./images/access-query.png" alt="Accessing Query Tool" width="350" >
 
-## 1. The SELECT Statement
+<h2 style="padding-top: 60px">1. The SELECT Statement</h2>
 It is kinda like the foundation of data retrieval in PostgreSQL. It is a command for retrieving data from tables within a PostgreSQL database. It enables users to specify which columns to fetch and apply filters for targeted results.
 
 ### Basic Syntax
@@ -62,7 +63,7 @@ FROM employees;
  Lucy
  Mwangi
  Daniel    
- ...
+ ... --Means there's more in the Data Output
 ```
 
 #### Selecting Multiple Columns
@@ -100,9 +101,9 @@ FROM employees;
 ```
      ?column?     | salary 
 ------------------+----------
- Sarah Stephanie  |  85000.00
- Nathanael Mutua  |  90000.00
+ Sarah Stephanie  |  89000.00
  Lucy Wanjiru     |  92000.00
+ Nathanael Mutua  |  90000.00
  ...
 ```
 > Notice the default column name. We'll learn to customize these with aliases in the next section.
@@ -125,7 +126,7 @@ WHERE department = 'Engineering';
  ...
 ```
 
-## 2. Column Aliases
+<h2 style="padding-top: 60px">2. Column Aliases</h2>
 Temporary names assigned to columns or expressions for readability.
 
 ### Syntax Options
@@ -152,10 +153,10 @@ FROM employees;
  Nathanael    |   Mutua
  Lucy         |   Wanjiru
  Mwangi       |   Johnson
-   ...   
+ ...   
 ```
 > [!NOTE]
-> To Alias names with spaces we enclose them in quotes
+> To alias names with spaces we enclose them in double quotes
 
 #### Expression aliasing
 ```sql
@@ -167,7 +168,7 @@ FROM employees;
 ```
    full_name       | proposed_salary 
 -------------------+-----------------
- Stella Stephanie  |        93500.00
+ Stella Stephanie  |        97900.00
  Lucy Wanjiru      |        101200.00
  ...
 ```
@@ -176,17 +177,20 @@ FROM employees;
 ```sql
 SELECT 
   email AS "Work Email",
-  salary AS "Annual Salary ($)"
+  salary AS "Monthly Salary ($)"
 FROM employees;
 ```
 
 ```
-
+     Work Email            |   Monthly Salary
+---------------------------+------------------- 
+  s.stephanie@company.com	 |    89000.00
+  nathanael.m@company.com	 |    90000.00
+  l.wanjiru@company.com	   |    92000.00
+  ...
 ```
 
-> Use double quotes for aliases containing spaces or special characters
-
-## 3. ORDER BY Clause
+<h2 style="padding-top: 60px">3. ORDED BY Clause</h2>
 Sorts query results based on specified columns or expressions.
 Usually basically ascending and descending, but we can do more.
 
@@ -220,7 +224,13 @@ SELECT department, first_name, salary
 FROM employees
 ORDER BY department ASC, salary DESC;
 ```
-
+```
+   department  |  first_name  |  salary
+---------------+--------------+-----------   
+ Director	     |   Lucy	      |  92000.00
+ Engineering	 |   Stella  	  |  89000.00
+ ...
+```
 #### Sorting by expression
 ```sql
 SELECT first_name, last_name
@@ -248,7 +258,7 @@ FROM employees
 ORDER BY department NULLS FIRST;
 ```
 
-## 4. SELECT DISTINCT Clause
+<h2 style="padding-top: 60px">4. SELECT DISTINCT Clause</h2>
 Removes duplicate rows from query results.
 
 ### Basic Syntax
@@ -304,19 +314,20 @@ FROM employees;
 -------------
     92.00
     60.00
-    72.00
+    68.00
     85.00
     75.00
-    42.00
+    89.00
 ```
 > **Performance thought:** DISTINCT sorts results internally which can be costly on large datasets.
 
-## Querying Tips
+<h2 style="padding-top: 60px">Querying Tips</h2>
 > - **SELECT Specific Columns**: Avoid SELECT * in production, it's kinda risky.
 > - **Use Aliases Wisely**: Improve readability but avoid names that are too long.
 > - **DISTINCT Alternatives**: Consider GROUP BY for complex deduplication.
 
-## PostgreSQL Querying Summary
+<h2 style="padding-top: 60px">PostgreSQL Querying Summary</h2>
+
 | Clause             | Purpose                          | Example                          |
 |--------------------|----------------------------------|----------------------------------|
 | SELECT             | Specify columns to retrieve      | SELECT id, name FROM users       |
@@ -325,4 +336,4 @@ FROM employees;
 | DISTINCT           | Remove duplicates                | SELECT DISTINCT department       |
 | NULLS FIRST/LAST   | Control NULL position in sorts   | ORDER BY score NULLS LAST        |
 
-*<b>PostgreSQL Querying Tutorial</b> • Lucy|Nash|Stella June 2025*
+<p style="padding-top: 40px; font-weight: 800;">PostgreSQL Querying Tutorial - <i>Nash, Stella & Lucy</i></p>
