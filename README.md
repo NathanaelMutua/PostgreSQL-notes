@@ -2,7 +2,7 @@
 <p style="text-align: center; font-style: italic;">Learning SELECT, Aliases, ORDER BY, and DISTINCT with Lucy, Nathanael and Stella</p>
 
 
-<h2 style="text-align: center; padding: 20px 0">Table of Contents</h2>
+<h2 style="text-align: center; padding-top: 100px">Table of Contents</h2>
 
   1. [Introduction](#introduction)
   2. [Setup](#setup)
@@ -13,7 +13,7 @@
   7. [Querying Tips](#querying-tips)
   8. [PostgreSQL Querying Summary](#postgresql-querying-summary)
 
-<h2 style="padding-top: 60px" id="introduction">Introduction</h2>
+<h2 style="padding-top: 100px" id="introduction">Introduction</h2>
 We will cover essential querying techniques using the `employees` table:
 
 ```sql
@@ -56,7 +56,7 @@ INSERT INTO employees VALUES
 
 - Create the employees table above, then let's jump right in.
 
-<h2 style="padding-top: 60px" id="the-select-statement">1. The SELECT Statement</h2>
+<h2 style="padding-top: 100px" id="the-select-statement">1. The SELECT Statement</h2>
 
 ### What I will cover:
 - [Basic Syntax](#basic-syntax)
@@ -158,7 +158,7 @@ WHERE department = 'Engineering';
  ...
 ```
 
-<h2 style="padding-top: 60px" id="column-aliases">2. Column Aliases</h2>
+<h2 style="padding-top: 100px" id="column-aliases">2. Column Aliases</h2>
 
 ### What I will Cover:
 - [Syntax Options](#syntax-options)
@@ -231,7 +231,7 @@ FROM employees;
   ...
 ```
 
-<h2 style="padding-top: 60px" id="order-by-clause">3. ORDED BY Clause</h2>
+<h2 style="padding-top: 100px" id="order-by-clause">3. ORDED BY Clause</h2>
 
 ### What I will cover
 - [Basic Syntax](#basic-syntax-1)
@@ -327,7 +327,7 @@ ORDER BY department NULLS FIRST;
    Anna       |     [null]	 
 ```
 
-<h2 style="padding-top: 60px" id="select-distinct">4. SELECT DISTINCT Clause</h2>
+<h2 style="padding-top: 100px" id="select-distinct">4. SELECT DISTINCT Clause</h2>
 
 ### What I will cover
 - [Basic Syntax](#basic-syntax-2)
@@ -410,13 +410,13 @@ FROM employees;
 ```
 > **Performance thought:** DISTINCT sorts results internally which can be costly on large datasets.
 
-<h2 style="padding-top: 60px" id="querying-tips">Querying Tips</h2>
+<h2 style="padding-top: 100px" id="querying-tips">Querying Tips</h2>
 
 > - **SELECT Specific Columns**: Avoid SELECT * in production, it's kinda risky.
 > - **Use Aliases Wisely**: Improve readability but avoid names that are too long.
 > - **DISTINCT Alternatives**: Consider GROUP BY for complex deduplication.
 
-<h2 style="padding-top: 60px" id="postgresql-querying-summary">PostgreSQL Querying Summary</h2>
+<h2 style="padding-top: 100px" id="postgresql-querying-summary">PostgreSQL Querying Summary</h2>
 
 | Clause/Statement             | Purpose                          | Example                          |
 |--------------------|----------------------------------|----------------------------------|
@@ -426,4 +426,4 @@ FROM employees;
 | DISTINCT           | Remove duplicates                | SELECT DISTINCT department       |
 | NULLS FIRST/LAST   | Control NULL position in sorts   | ORDER BY score NULLS LAST        |
 
-<p style="padding-top: 50px; font-weight: 700; text-align: center;">PostgreSQL Querying Tutorial - <i>Nash, Stella & Lucy</i></p>
+<p style="padding-top: 100px; font-weight: 700; text-align: center;">PostgreSQL Querying Tutorial - <i>Nash, Stella & Lucy</i></p>
