@@ -1,8 +1,20 @@
 <h1 style="text-align: center; padding: 40px 2px">Querying Data in PostgreSQL</h1>
 *Learning SELECT, Aliases, ORDER BY, and DISTINCT with Lucy, Nathanael and Stella*
 
-<h2 style="padding-top: 60px">Introduction</h2>
-The SELECT statement is the foundation of data retrieval in PostgreSQL. This tutorial covers essential querying techniques using the `employees` table:
+
+<h2 style="text-align: center;">Table of Contents</h2>
+
+  1. [Introduction](#introduction)
+  2. [Setup](#setup)
+  3. [The Select Statement](#the-select-statement)
+  4. [Column Aliases](#column-aliases)
+  5. [ORDER BY Clause](#order-by-clause)
+  6. [SELECT DISTINCT Clause](#select-distinct)
+  7. [Querying Tips](#querying-tips)
+  8. [PostgreSQL Querying Summary](#postgresql-querying-summary)
+
+<h2 style="padding-top: 60px" id="introduction">Introduction</h2>
+We will cover essential querying techniques using the `employees` table:
 
 ```sql
 CREATE TABLE employees (
@@ -27,7 +39,7 @@ INSERT INTO employees VALUES
 ```
 
 
-<h2 style="padding-top: 60px">Setup</h2>
+<h2 style="padding-top: 60px" id="setup">Setup</h2>
 
 ### Requirements
 - Have PostgreSQL installed..[click here for a tutorial](https://www.youtube.com/watch?v=GpqJzWCcQXY)
@@ -40,8 +52,20 @@ INSERT INTO employees VALUES
 
 <img src="./images/access-query.png" alt="Accessing Query Tool" width="350" >
 
-<h2 style="padding-top: 60px">1. The SELECT Statement</h2>
-It is kinda like the foundation of data retrieval in PostgreSQL. It is a command for retrieving data from tables within a PostgreSQL database. It enables users to specify which columns to fetch and apply filters for targeted results.
+- Create the employees table above, then let's jump right in.
+
+<h2 style="padding-top: 60px" id="the-select-statement">1. The SELECT Statement</h2>
+
+### What I will cover:
+- [Basic Syntax](#basic-syntax)
+- [Fetching Specific Columns](#fetch-specific-columns)
+- [Selecting Multiple columns](#selecting-multiple-columns)
+- [Fetching all columns](#fetch-all-columns)
+- [Using Expressions](#using-expressions)
+
+It is like the foundation of data retrieval in PostgreSQL.
+
+It is a command for retrieving data from tables within a PostgreSQL database. It enables users to specify which columns to fetch and apply filters for targeted results.
 
 ### Basic Syntax
 ```sql
@@ -71,7 +95,7 @@ FROM employees;
 ```
 
 #### Selecting Multiple Columns
-We separate each column with a comma (,)
+We separate each column with a comma (,). Allowing us to select more than one column for each query.
 ```sql
 SELECT first_name, last_name, department 
 FROM employees;
@@ -86,7 +110,7 @@ FROM employees;
 ```
 
 ### Fetch all columns
-We use the (*) asterisk symbol.
+We use the (*) asterisk symbol. This gives us all the columns from the table.
 ```sql
 SELECT * FROM employees;
 ```
@@ -114,6 +138,8 @@ FROM employees;
 
 ### Using WHERE to target and filter
 
+> This will be covered in detail later on
+
 To filter results based on specific conditions, we can use the WHERE clause. For example, to retrieve employees in the Engineering department:
 
 ```sql
@@ -130,8 +156,15 @@ WHERE department = 'Engineering';
  ...
 ```
 
-<h2 style="padding-top: 60px">2. Column Aliases</h2>
-Temporary names assigned to columns or expressions for readability.
+<h2 style="padding-top: 60px" id="column-aliases">2. Column Aliases</h2>
+
+### What I will Cover:
+- [Syntax Options](#syntax-options)
+- [Basic Aliasing](#basic-aliasing)
+- [Expression Aliasing](#expression-aliasing)
+- [Aliasing with Special Characters](#aliases-with-special-characters)
+
+These are temporary names assigned to columns or expressions for readability.
 
 ### Syntax Options
 ```sql
@@ -159,7 +192,7 @@ FROM employees;
  Mwangi       |   Johnson
  ...   
 ```
-> [!NOTE]
+
 > To alias names with spaces we enclose them in double quotes
 
 #### Expression aliasing
@@ -178,6 +211,8 @@ FROM employees;
 ```
 
 #### Aliases with special characters
+As seen before we enclose word with spaces in double brackets in order to use them as aliases.
+
 ```sql
 SELECT 
   email AS "Work Email",
@@ -194,7 +229,16 @@ FROM employees;
   ...
 ```
 
-<h2 style="padding-top: 60px">3. ORDED BY Clause</h2>
+<h2 style="padding-top: 60px" id="order-by-clause">3. ORDED BY Clause</h2>
+
+### What I will cover
+- [Basic Syntax](#basic-syntax-1)
+- [Single Column Sorting](#single-column-sorting)
+- [Multi-column Sorting](#multi-column-sorting)
+- [Sorting By Expression](#sorting-by-expression)
+- [NULL Handling](#null-handling)
+
+
 Sorts query results based on specified columns or expressions.
 Usually basically ascending and descending, but we can do more.
 
@@ -250,19 +294,44 @@ ORDER BY LENGTH(first_name), last_name;
 ```
 
 #### NULL handling
+In some tables we may come across null values, it helps that we can identify null values and sort our query according to their position.
+
+First, we can ensure they appear last, in a situation wher we do not need to see the Null values.
 ```sql
 SELECT first_name, department
 FROM employees
 ORDER BY department NULLS LAST;
 ```
 
+```
+   first_name  |  department
+---------------+--------------
+    Anna       |     [null]	 
+  ...
+```
+
+Secondly, we can have them appearing at the top of the queried data. This will ensure we can identify them.
 ```sql
 SELECT first_name, department
 FROM employees
 ORDER BY department NULLS FIRST;
 ```
 
-<h2 style="padding-top: 60px">4. SELECT DISTINCT Clause</h2>
+```
+   first_name  |  department
+---------------+--------------
+  ...
+   Anna       |     [null]	 
+```
+
+<h2 style="padding-top: 60px" id="select-distinct">4. SELECT DISTINCT Clause</h2>
+
+### What I will cover
+- [Basic Syntax](#basic-syntax-2)
+- [Single Column Distinct](#single-column-distinct)
+- [Multi-column Distinct](#multi-column-distinct)
+- [DISTINCT with Expressions](#distinct-with-expressions)
+
 Removes duplicate rows from query results.
 
 ### Basic Syntax
@@ -325,14 +394,15 @@ FROM employees;
 ```
 > **Performance thought:** DISTINCT sorts results internally which can be costly on large datasets.
 
-<h2 style="padding-top: 60px">Querying Tips</h2>
+<h2 style="padding-top: 60px" id="querying-tips">Querying Tips</h2>
+
 > - **SELECT Specific Columns**: Avoid SELECT * in production, it's kinda risky.
 > - **Use Aliases Wisely**: Improve readability but avoid names that are too long.
 > - **DISTINCT Alternatives**: Consider GROUP BY for complex deduplication.
 
-<h2 style="padding-top: 60px">PostgreSQL Querying Summary</h2>
+<h2 style="padding-top: 60px" id="postgresql-querying-summary">PostgreSQL Querying Summary</h2>
 
-| Clause             | Purpose                          | Example                          |
+| Clause/Statement             | Purpose                          | Example                          |
 |--------------------|----------------------------------|----------------------------------|
 | SELECT             | Specify columns to retrieve      | SELECT id, name FROM users       |
 | AS                 | Assign column alias              | SELECT salary * 12 AS annual     |
