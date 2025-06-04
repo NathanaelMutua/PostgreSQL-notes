@@ -1,8 +1,8 @@
 <h1 style="text-align: center; padding: 40px 2px">Querying Data in PostgreSQL</h1>
-*Learning SELECT, Aliases, ORDER BY, and DISTINCT with Lucy, Nathanael and Stella*
+<p style="text-align: center; font-style: italic;">Learning SELECT, Aliases, ORDER BY, and DISTINCT with Lucy, Nathanael and Stella</p>
 
 
-<h2 style="text-align: center;">Table of Contents</h2>
+<h2 style="text-align: center; padding: 20px 0">Table of Contents</h2>
 
   1. [Introduction](#introduction)
   2. [Setup](#setup)
@@ -35,7 +35,9 @@ INSERT INTO employees VALUES
 (5, 'Daniel', 'Njoroge', 'Engineering', '2023-01-15', 85000, 'dan.njoro@company.com'),
 (6, 'Anna', 'Kiptoo', NULL, '2023-05-01', 75000, 'anna.kip@company.com'),
 (7, 'Wilson', 'Kiptoo', 'Engineering', '2024-02-12', 60000, 'wilson.kip@company.com'),
-(8, 'Mercy', 'Mumo', 'Marketing', '2024-02-12', 42000, 'mercy.mumo@company.com');
+(8, 'Mercy', 'Mumo', 'Marketing', '2024-02-12', 42000, 'mercy.mumo@company.com')
+(9, 'Michael', 'Kiptoo', NULL, '2023-07-01', 65000, 'anna.kip@company.com'),
+(10, 'Johnson', 'Kiptoo', 'HR', '2025-03-01', 80000, 'johnson.kip@company.com');
 ```
 
 
