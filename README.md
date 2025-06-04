@@ -34,10 +34,10 @@ INSERT INTO employees VALUES
 (4, 'Mwangi', 'Johnson', 'HR', '2021-08-30', 68000, 'mwangij@company.com'),
 (5, 'Daniel', 'Njoroge', 'Engineering', '2023-01-15', 85000, 'dan.njoro@company.com'),
 (6, 'Anna', 'Kiptoo', NULL, '2023-05-01', 75000, 'anna.kip@company.com'),
-(7, 'Wilson', 'Kiptoo', 'Engineering', '2024-02-12', 60000, 'wilson.kip@company.com'),
+(7, 'Wilson', 'Kiptoo', 'Engineering', '2024-02-12', 85000, 'wilson.kip@company.com'),
 (8, 'Mercy', 'Mumo', 'Marketing', '2024-02-12', 42000, 'mercy.mumo@company.com')
 (9, 'Michael', 'Kiptoo', NULL, '2023-07-01', 65000, 'anna.kip@company.com'),
-(10, 'Johnson', 'Kiptoo', 'HR', '2025-03-01', 80000, 'johnson.kip@company.com');
+(10, 'Johnson', 'Kiptoo', 'HR', '2025-03-01', 68000, 'johnson.kip@company.com');
 ```
 
 
@@ -208,7 +208,7 @@ FROM employees;
    full_name       | proposed_salary 
 -------------------+-----------------
  Stella Stephanie  |        97900.00
- Lucy Wanjiru      |        101200.00
+ Nathanael Mutua   |        99000.00
  ...
 ```
 
@@ -262,6 +262,7 @@ ORDER BY hire_date DESC;  -- Newest first
 ```
  first_name  |  hire_date
 -------------+-------------
+  Johnson    |  2025-03-01
   Wilson     |  2024-02-12
   Mercy      |  2024-02-12
   Lucy       |  2023-11-05
@@ -283,15 +284,15 @@ ORDER BY department ASC, salary DESC;
 ```
 #### Sorting by expression
 ```sql
-SELECT first_name, last_name
+SELECT last_name, first_name
 FROM employees
 ORDER BY LENGTH(first_name), last_name;
 ```
 ```
- department    | 	first_name	|  salary
----------------+--------------+-----------
- "Director"	   |  "Lucy"	    |  92000.00
- "Engineering" |	"Daniel"	  |  85000.00
+   last_name   | 	first_name	|  
+---------------+--------------|
+  Anna    	   |  Kiptoo	    |
+  Lucy         |	Wanjiru  	  |
  ...
 ```
 
@@ -334,7 +335,7 @@ ORDER BY department NULLS FIRST;
 - [Multi-column Distinct](#multi-column-distinct)
 - [DISTINCT with Expressions](#distinct-with-expressions)
 
-Removes duplicate rows from query results.
+This is a clause that removes duplicate rows from query results.
 
 ### Basic Syntax
 ```sql
@@ -347,6 +348,7 @@ FROM table_name;
 
 ### Duplicate Elimination
 #### Single column distinct
+We can start off by targeting a single column to remove duplicates.
 ```sql
 SELECT DISTINCT department 
 FROM employees;
@@ -362,6 +364,16 @@ FROM employees;
 ```
 
 #### Multi-column distinct
+Here we will select non-duplicates for more than one column.
+
+In the example below:
+We are checking for the unique values in ```department``` column, and ```salary``` column.
+
+You will notice that we have some repeated departments, Don't Worry.
+So, we first check for unique values in department, which are: ```Engineering```, ```Marketing```, ```Director```,```HR``` and ```null```.
+Which will appear as we saw in the first query. But with the added ```salary``` column we also check for unique values in the column.
+
+Let's take one department, say ```Engineering```, it has several members, but the unique salaries that do not duplicate are the only ones shown; this is the same to ```Marketing```.
 ```sql
 SELECT DISTINCT department, salary
 FROM employees;
@@ -372,10 +384,11 @@ FROM employees;
  Marketing   |  42000.00
  [null]      |  75000.00
  HR          |  68000.00
- Marketing   |  72000.00
+ [null]      |  65000.00
+ Engineering |  89000.00
  Engineering |  85000.00
  Director    |  92000.00
- Engineering |  60000.00
+ ...
 ```
 
 #### DISTINCT with expressions
@@ -388,11 +401,12 @@ FROM employees;
  salary_band 
 -------------
     92.00
-    60.00
+    65.00
     68.00
     85.00
     75.00
     89.00
+    ...
 ```
 > **Performance thought:** DISTINCT sorts results internally which can be costly on large datasets.
 
@@ -412,4 +426,4 @@ FROM employees;
 | DISTINCT           | Remove duplicates                | SELECT DISTINCT department       |
 | NULLS FIRST/LAST   | Control NULL position in sorts   | ORDER BY score NULLS LAST        |
 
-<p style="padding-top: 40px; font-weight: 800;">PostgreSQL Querying Tutorial - <i>Nash, Stella & Lucy</i></p>
+<p style="padding-top: 50px; font-weight: 700; text-align: center;">PostgreSQL Querying Tutorial - <i>Nash, Stella & Lucy</i></p>
