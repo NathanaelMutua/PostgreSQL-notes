@@ -15,7 +15,7 @@
 
 <h2 style="padding-top: 100px" id="introduction">Introduction</h2>
 
-### Creating the 'sample_t2g' database
+### Creating the 'sample_t2g' database...just to work in
 First, open the Command Prompt on Windows or Terminal on Unix-like systems and connect to the PostgreSQL server using psql tool:
 
 ```
