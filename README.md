@@ -14,6 +14,55 @@
   8. [PostgreSQL Querying Summary](#postgresql-querying-summary)
 
 <h2 style="padding-top: 100px" id="introduction">Introduction</h2>
+
+### Creating the 'sample_t2g' database
+First, open the Command Prompt on Windows or Terminal on Unix-like systems and connect to the PostgreSQL server using psql tool:
+
+```
+psql -U postgres
+```
+
+It’ll prompt you to enter a password for the postgres user:
+
+```
+Password for user postgres:
+```
+
+After entering the password correctly, you will be connected to the PostgreSQL server.
+
+The command prompt will look like this:
+```
+postgres=#
+```
+
+Second, create a new database called sample_t2g using CREATE DATABASE statement:
+```
+CREATE DATABASE sample_t2g;
+```
+
+Output:
+```
+CREATE DATABASE
+```
+
+PostgreSQL will create a new database called sample_t2g.
+
+Third, verify the database creation using the \l command. The \l command will show all databases in the PostgreSQL server:
+
+```
+\l
+```
+
+Next, switch the current database to sample_t2g:
+```
+\c sample_t2g
+```
+The command prompt will change to the following:
+```
+sample_t2g=#
+```
+
+Now let's start...
 We will cover essential querying techniques using the `employees` table:
 
 ```sql
