@@ -35,7 +35,7 @@ INSERT INTO employees VALUES
 (5, 'Daniel', 'Njoroge', 'Engineering', '2023-01-15', 85000, 'dan.njoro@company.com'),
 (6, 'Anna', 'Kiptoo', NULL, '2023-05-01', 75000, 'anna.kip@company.com'),
 (7, 'Wilson', 'Kiptoo', 'Engineering', '2024-02-12', 85000, 'wilson.kip@company.com'),
-(8, 'Mercy', 'Mumo', 'Marketing', '2024-02-12', 42000, 'mercy.mumo@company.com')
+(8, 'Mercy', 'Mumo', 'Marketing', '2024-02-12', 42000, 'mercy.mumo@company.com'),
 (9, 'Michael', 'Kiptoo', NULL, '2023-07-01', 65000, 'anna.kip@company.com'),
 (10, 'Johnson', 'Kiptoo', 'HR', '2025-03-01', 68000, 'johnson.kip@company.com');
 ```
